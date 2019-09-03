@@ -1,6 +1,5 @@
 # Warp Watcher
 A minimal tornado webapp to display thumbnails of micrographs processed by [Warp](http://www.warpem.com/warp/).
-------------------------
 
 ![Warp Watcher Screenshot](screenshot.png?raw=true)
 
