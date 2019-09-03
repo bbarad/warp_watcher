@@ -1,0 +1,29 @@
+<!--
+/*
+ * Copyright 2019 Genentech Inc.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+-->
+<div class="row" id="run-info">
+    <h4 class="text-center"> Warp Directory: {{warp_name}} - Displaying {{line_count}} of {{total_count}} Micrographs </h4>
+</div>
+<div class="row no-gutters" id="gallery">
+  {% for entry in thumbnail_list %}
+  <div class="col-lg-2 col-md-3 col-4">
+    <a href="{{entry['url']}}?v={{warp_name}}" data-toggle="lightbox"  data-gallery="gallery" data-width="400" data-height="400" data-footer="Image {{entry['number']}} | {{entry['name']}} | {{entry['timestamp']}}">
+      <img src="{{entry['url']}}?v={{warp_name}}" data-toggle="tooltip" data-trigger='hover' data-placement="bottom" Title="Image {{entry['number']}} | {{entry['name']}} | {{entry['timestamp']}}" class="img-fluid" alt="{{entry['name']}}" style="width:100%">
+    </a>
+  </div>
+  {% end %}
+</div>
