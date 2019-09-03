@@ -43,7 +43,7 @@ define('parent_path', type=str, help="Parent directory for warp jobs")
 # Set up globals for use throughout the program
 static_path = {"path": "/tmp/thumbnails"}
 warp_path = ["/tmp"]
-body_html = [f"Waiting to Load Micrographs - {warp_path[0]}"]
+body_html = [f"<h4>No Micrographs Loaded Yet - Current Warp Path is {warp_path[0]}</h4>"]
 settings = {"websocket_ping_interval": 30}
 clients = set()
 loader = tornado.template.Loader(".")
@@ -86,8 +86,10 @@ async def update_html_string(path, linecount=200):
         linecount = total_count
     return_list = [{"number": len(files)-i,"timestamp": datetime.datetime.fromtimestamp(os.path.getctime(os.path.join(thumbnail_dir, j))).strftime('%Y-%m-%d %H:%M:%S'), "name": j[:-4], "url": os.path.join("/gallery/", j)} for i,j in enumerate(files[:linecount])]
     warp_name = os.path.split(path)[1]
-
-    body_html[0] = string_loader.generate(thumbnail_list = return_list, warp_name = warp_name, line_count = linecount, total_count = total_count).decode("utf-8")
+    if len(files) == 0:
+        body_html[0] = f"<h4>No Thumbnails Loaded Yet - Current Warp Path is {path}</h4>"
+    else:
+        body_html[0] = string_loader.generate(thumbnail_list = return_list, warp_name = warp_name, line_count = linecount, total_count = total_count).decode("utf-8")
     print("Updating Client HTML")
     await message_all_clients({"type": "gallery", "data": body_html[0]})
 
@@ -132,6 +134,8 @@ class SocketHandler(WebSocketHandler):
         command = message_json['command']
         data = message_json['data']
         if command == "change_directory":
+            if data == None:
+                return
             if await change_warp_path(data):
                 print(warp_path[0])
                 await update_html_string(warp_path[0], linecount=options.thumbnail_count)
