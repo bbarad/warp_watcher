@@ -22,7 +22,7 @@
   {% for entry in thumbnail_list %}
   <div class="col-lg-2 col-md-3 col-4">
     <a href="{{entry['url']}}?v={{warp_name}}" data-toggle="lightbox"  data-gallery="gallery" data-width="400" data-height="400" data-footer="Image {{entry['number']}} | {{entry['name']}} | {{entry['timestamp']}}">
-      <img src="{{entry['url']}}?v={{warp_name}}" data-toggle="tooltip" data-trigger='hover' data-placement="bottom" Title="Image {{entry['number']}} | {{entry['name']}} | {{entry['timestamp']}}" class="img-fluid" alt="{{entry['name']}}" style="width:100%">
+      <img src="{{entry['url']}}?v={{warp_name}}" data-toggle="tooltip" data-trigger='hover' data-placement="bottom" Title="Image {{entry['number']}} | {{entry['name']}} | Processed at {{entry['timestamp']}}" class="img-fluid" alt="{{entry['name']}}" style="width:100%">
     </a>
   </div>
   {% end %}
