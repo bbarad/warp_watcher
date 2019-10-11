@@ -18,7 +18,7 @@ Due to changes in the IOLoop, this program is not windows compatible if run with
 Setup:
 ```bash
 git clone https://github.com/bbarad/warp_watcher && cd warp_watcher
-pip install -f requirements.txt # only requirement currently is tornado
+pip install -r requirements.txt # only requirement currently is tornado
 python main.py --port=8080 --parent_path=$WARP_PARENT_PATH --thumbnail_count=200
 ```
 
